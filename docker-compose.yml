@@ -1,0 +1,35 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: chat
+      POSTGRES_USER: chat
+      POSTGRES_PASSWORD: chat
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    # Published so you can also run the app from your IDE against this DB (`docker compose up -d db`).
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U chat -d chat"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+
+  app:
+    build: .
+    environment:
+      DB_URL: jdbc:postgresql://db:5432/chat
+      DB_USER: chat
+      DB_PASSWORD: chat
+    ports:
+      - "8080:8080"
+    depends_on:
+      # Plain depends_on only waits for the container to *start*; Postgres needs a few more
+      # seconds before it accepts connections, and the app would crash on its schema init.
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  db-data:

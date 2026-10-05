@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Chat</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<section id="auth" class="auth" hidden>
+    <form id="auth-form" class="auth-card">
+        <h1>Chat</h1>
+        <p class="muted">Log in with your username</p>
+        <input id="auth-username" name="username" placeholder="Username" autocomplete="username"
+               required minlength="3" maxlength="32" pattern="[A-Za-z0-9_.\-]+"
+               title="3-32 letters, digits, _ . -">
+        <div class="auth-actions">
+            <button type="submit">Log in</button>
+        </div>
+        <p id="auth-error" class="error" role="alert"></p>
+    </form>
+</section>
+
+<section id="app" class="app" hidden>
+    <aside class="sidebar">
+        <header class="sidebar-header">
+            <span id="me-name" class="me"></span>
+            <button id="logout" class="link">Log out</button>
+        </header>
+        <input id="search" class="search" type="search" placeholder="Find a user to message…" autocomplete="off">
+        <ul id="search-results" class="list"></ul>
+        <ul id="conversations" class="list"></ul>
+        <p id="no-convos" class="muted pad">No chats yet. Search for a user above to start one.</p>
+    </aside>
+
+    <main class="chat">
+        <div id="chat-empty" class="chat-empty muted">Select a chat to start messaging</div>
+        <div id="thread" class="thread" hidden>
+            <header class="thread-header">
+                <button id="back" class="link back" aria-label="Back">←</button>
+                <div>
+                    <div id="peer-name" class="peer-name"></div>
+                    <div id="peer-status" class="peer-status muted"></div>
+                </div>
+            </header>
+            <div id="messages" class="messages"></div>
+            <form id="composer" class="composer">
+                <textarea id="composer-input" rows="1" maxlength="4000" placeholder="Type a message"></textarea>
+                <button type="submit">Send</button>
+            </form>
+        </div>
+    </main>
+
+    <div id="conn-banner" class="conn-banner" hidden>Reconnecting…</div>
+</section>
+
+<script src="app.js"></script>
+</body>
+</html>
