@@ -63,7 +63,7 @@ Browser ──REST (/api/**)──▶ UserController / ConversationController �
 | C → S | `{type:"send", to, body, clientMsgId}` · `{type:"read", peer, upToId}` · `{type:"typing", to}` · `{type:"ping"}` |
 | S → C | `{type:"hello", me}` · `{type:"message", message}` · `{type:"read", readerId, senderId, upToId}` · `{type:"typing", from}` · `{type:"pong"}` · `{type:"error", clientMsgId, error}` |
 
-## Known limitations / next steps
+## Known limitations
 
 * **No authentication.** Identity is a client-supplied user id, so anyone can impersonate any
   user and read their chats. Don't expose the app beyond a trusted network.
@@ -73,3 +73,4 @@ Browser ──REST (/api/**)──▶ UserController / ConversationController �
   already in the DB.
 * There is no rate limiting.
 * No "delivered" state (only sent and read), group chats, or media.
+* No session to keep one account live (can open multiple tabs in the same browser using the same id).
